@@ -59,4 +59,22 @@ footer {
   text-align: center;
   padding: 10px;
 }
+.list {
+  list-style-type: none;
+ }
 
+ .list-item {
+  font-weight: var(--font-weight-highlighted);
+  padding: 20px;
+  margin:20px;
+  height: 70px;
+  width: 300px;
+  background-color: var(--essential-color2);
+  border-top: 3px solid var(--color-scheme7);
+  border-radius: 8px;
+  text-align: center;
+ }
+
+.list-item:hover {
+  background-color: var(--color-scheme7);
+}
