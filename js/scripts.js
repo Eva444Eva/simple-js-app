@@ -4,18 +4,25 @@ let pokemonList = [
   { name: 'Slowbro', height: 1.6, types: ['psychic', 'water']},
 ];
 
-// this loop writes all the Pokemon names in the array with height
-document.write('<ul>');
-for (let i = 0, pl = pokemonList.length; i < pl; i++) {
-  document.write('<li class="list-item">');
-  document.write(pokemonList[i].name + ' (height: ' + pokemonList[i].height + ')');
+//this loop writes all the Pokemon names in the array with height
+document.write('<ul class="list">');
 
-  // Sentence below appears when Pokemon is higher that 1
-  if (pokemonList[i].height >= 1) {
-    document.write(" - Wow, that is big!");
+pokemonList.forEach(pokemon => {
+  // opening tag
+  document.write('<li class="list-item">');
+
+  // main info
+  document.write(pokemon.name + ': ' + ' height -  '+ pokemon.height);
+  
+  // conditional note
+  if (pokemon.height >= 1) {
+    document.write(' - Wow, that is big!');
   }
+
+  // closing tag
   document.write('</li>');
-}
+}); 
+
 document.write('</ul>');
 
 let pokemonRepo = (function() {
