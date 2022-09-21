@@ -18,4 +18,38 @@ for (let i = 0, pl = pokemonList.length; i < pl; i++) {
 }
 document.write('</ul>');
 
+let pokemonRepo = (function() {
+  let pokemonList = [
+    { name: 'Bulbasaur', height: 0.7, types: ['grass', 'poison']},
+    { name: 'Rattata', height: 0.3, types: ['normal']},
+    { name: 'Slowbro', height: 1.6, types: ['psychic', 'water']},
+  ];
 
+  function getAll() {
+    return pokemonList;
+  }
+
+  // define separate function add(item)
+  function add(item) {
+    pokemonList.push(item);
+  }
+
+  // return object with the new public functions assigned as keys
+  return {
+    getAll: getAll,
+    add: add
+  };
+
+  // alt
+  /* return {
+    getAll: () => pokemonList,
+    add: pokemon => {
+      pokemonList.push(pokemon);
+    },
+    filter: function filter(type) {
+      return pokemonList.filter(function(pokemon) {
+        return pokemon.types.includes(type);
+      });
+    }
+  };*/
+})();
