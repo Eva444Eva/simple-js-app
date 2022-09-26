@@ -48,6 +48,7 @@ header {
   padding-left: 10px;
   background-color: var(--essential-color1);
   padding: 10px;
+  margin: 10px;
 }
 
 main {
@@ -59,22 +60,29 @@ footer {
   text-align: center;
   padding: 10px;
 }
-.list {
-  list-style-type: none;
- }
 
- .list-item {
+.pokemon-list {
+  padding-left: unset;
+}
+
+.list-item {
+  list-style: none;
+}
+
+.button-class {
   font-weight: var(--font-weight-highlighted);
+  font-size: var(--font-size2);
   padding: 20px;
-  margin:20px;
+  margin:10px;
   height: 70px;
   width: 300px;
   background-color: var(--essential-color2);
+  border: unset;
   border-top: 3px solid var(--color-scheme7);
   border-radius: 8px;
   text-align: center;
- }
+}
 
-.list-item:hover {
+.button-class:hover {
   background-color: var(--color-scheme7);
 }
