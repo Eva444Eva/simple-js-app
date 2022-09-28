@@ -72,6 +72,7 @@ footer {
 .button-class {
   font-weight: var(--font-weight-highlighted);
   font-size: var(--font-size2);
+  text-transform: capitalize;
   padding: 20px;
   margin:10px;
   height: 70px;

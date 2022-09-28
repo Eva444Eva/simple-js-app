@@ -1,11 +1,8 @@
 
 let pokemonRepo = (function() {
-  let pokemonList = [
-    { name: 'Bulbasaur', height: 0.7, types: ['grass', 'poison']},
-    { name: 'Rattata', height: 0.3, types: ['normal']},
-    { name: 'Slowbro', height: 1.6, types: ['psychic', 'water']},
-  ];
-  const requiredPokemonParams = ['name', 'height', 'types'];
+  let pokemonList = [];
+  const requiredPokemonParams = ['name', 'detailsUrl'];
+  const API_BASE_URL = 'https://pokeapi.co/api/v2/';
 
   function getAll() {
     return pokemonList;
@@ -45,22 +42,57 @@ let pokemonRepo = (function() {
     });
   }
 
-  function showDetails(pokemon) {
-    console.log(pokemon.name);
+  function showDetails(pkmn) {
+    if (pkmn.detailsLoaded) {
+      console.log(pkmn);
+    } else {
+      loadDetails(pkmn).then(_ => {
+        console.log(pkmn);
+      });
+    }
+  }
+
+  function loadList() {
+    const endpoint = 'pokemon';
+    const params = 'limit=150&offset=0';
+
+    return fetch(`${API_BASE_URL}${endpoint}?${params}`)
+      .then(response => response.json())
+      .then(data => {
+        data?.results?.forEach(pkmn => {
+          add({
+            name: pkmn.name,
+            detailsUrl: pkmn.url,
+          });
+        });
+        pokemonList.forEach(pkmn => {
+          addListItem(pkmn);
+        });
+      });
+  }
+
+  function loadDetails(pkmn) {
+    return fetch(pkmn.detailsUrl)
+      .then(response => response.json())
+      .then(details => {
+        pkmn.imageUrl = details.sprites.front_default;
+        pkmn.height = details.height;
+        pkmn.types = details.types;
+        pkmn.detailsLoaded = true;
+      });
   }
 
   // return object with the new public functions assigned as keys
   return {
-    getAll: getAll,
     add: add,
     findByName: findByName,
-    addListItem: addListItem
+    getAll: getAll,
+    loadDetails: loadDetails,
+    loadList: loadList,
   };
 })();
 
-pokemonRepo.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
-
-pokemonRepo.getAll().forEach(function(pokemon) {
-  console.log(pokemon);
-  pokemonRepo.addListItem(pokemon);
-});
+pokemonRepo.loadList();
+// pokemonRepo.loadList().then(_ => {
+//   console.log(pokemonRepo.getAll());
+// });
