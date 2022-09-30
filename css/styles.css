@@ -47,7 +47,7 @@ header {
   text-align: left;
   padding-left: 10px;
   background-color: var(--essential-color1);
-  padding: 10px;
+  padding: 20px;
   margin: 10px;
 }
 
@@ -58,7 +58,7 @@ main {
 footer {
   background-color:var(--essential-color2);
   text-align: center;
-  padding: 10px;
+  padding: 20px;
 }
 
 .pokemon-list {
@@ -86,4 +86,57 @@ footer {
 
 .button-class:hover {
   background-color: var(--color-scheme7);
+}
+.pokemon-details-modal {
+  display: none;
+}
+
+.pokemon-details-modal.is-visible {
+  position: fixed;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+
+  /* to show it above other content */
+  z-index: 999; 
+
+  /* to allow scrolling if the screen is not high enough*/
+  overflow: auto; 
+
+  /* this is used to center the modal */
+  display: grid;
+  text-align: center;
+}
+
+.modal {
+  margin: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  background: var(--essential-color2);
+  padding: 15px;
+  width: 100%;
+  max-width: 440px;
+  border: unset;
+  border-radius: 8px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+#modal-pokemon-image {
+  width: 240px;
+  height: 240px;
+}
+
+#modal-close-button {
+  font-size: var(--font-size2);
+  padding: 4px 12px;
+  align-self: flex-end;
+}
+
+#modal-close-button:hover {
+  background-color: var(--essential-color1);
+  color: var(--essential-color3);
 }

@@ -37,6 +37,16 @@
    
     <main class="main-container">
       <ul class="pokemon-list"></ul>
+      
+      <div class="pokemon-details-modal">
+        <div class="modal">
+          <h1 id="modal-pokemon-name"></h1>
+          <p>Height: <span id="modal-pokemon-height"></span></p>
+          <img id="modal-pokemon-image" src="" />
+          <button id="modal-close-button">Close</button>
+        </div>
+      </div>
+
       <script src="./lib/promise-polyfill.js"></script>
       <script src="./lib/fetch-polyfill.js"></script>
       <script src="./js/scripts.js"></script>
