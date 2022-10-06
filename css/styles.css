@@ -42,13 +42,21 @@ body {
   display: flex;
   flex-direction: column;
 }
- 
-header {
-  text-align: left;
-  padding-left: 10px;
+
+.navbar {
   background-color: var(--essential-color1);
-  padding: 20px;
-  margin: 10px;
+}
+
+.nav-link {
+  color: var(--color-scheme4);
+}
+
+.navbar-toggler {
+  background-color: var(--essential-color4);
+}
+
+.collapse {
+  justify-content: end;
 }
 
 main {
