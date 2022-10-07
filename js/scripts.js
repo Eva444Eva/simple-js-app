@@ -36,20 +36,37 @@ let pokemonRepo = (function() {
 
     button.innerText = pokemon.name;
     button.classList.add("button-class");
-
-    button.addEventListener('click', (event) => {
-      showDetails(pokemon);
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#pokemon-details-modal');
+    button.addEventListener('click', event => {
+      if (pokemon.detailsLoaded) {
+        updateDetailData(pokemon);
+      } else {
+        loadDetails(pokemon).then(_ => {
+          updateDetailData(pokemon);
+        });
+      }  
     });
   }
 
-  function showDetails(pkmn) {
-    if (pkmn.detailsLoaded) {
-      console.log(pkmn);
-    } else {
-      loadDetails(pkmn).then(_ => {
-        console.log(pkmn);
+  function loadDetails(pokemon) {
+    return fetch(pokemon.detailsUrl)
+      .then(response => response.json())
+      .then(details => {
+        pokemon.imageUrl = details.sprites.front_default;
+        pokemon.height = details.height;
+        pokemon.types = details.types;
+        pokemon.detailsLoaded = true;
       });
-    }
+  }
+
+  function updateDetailData(pokemon) {
+    let formattedTypes = pokemon.types.map(item => item.type.name).join(', ');
+
+    document.querySelector('#modal-pokemon-name').innerText = pokemon.name;
+    document.querySelector('#modal-pokemon-height').innerText = pokemon.height;
+    document.querySelector('#modal-pokemon-types').innerText = formattedTypes;
+    document.querySelector('#modal-pokemon-image').src = pokemon.imageUrl;
   }
 
   function loadList() {
@@ -59,26 +76,15 @@ let pokemonRepo = (function() {
     return fetch(`${API_BASE_URL}${endpoint}?${params}`)
       .then(response => response.json())
       .then(data => {
-        data?.results?.forEach(pkmn => {
+        data?.results?.forEach(pokemon => {
           add({
-            name: pkmn.name,
-            detailsUrl: pkmn.url,
+            name: pokemon.name,
+            detailsUrl: pokemon.url,
           });
         });
-        pokemonList.forEach(pkmn => {
-          addListItem(pkmn);
+        pokemonList.forEach(pokemon => {
+          addListItem(pokemon);
         });
-      });
-  }
-
-  function loadDetails(pkmn) {
-    return fetch(pkmn.detailsUrl)
-      .then(response => response.json())
-      .then(details => {
-        pkmn.imageUrl = details.sprites.front_default;
-        pkmn.height = details.height;
-        pkmn.types = details.types;
-        pkmn.detailsLoaded = true;
       });
   }
 
@@ -93,6 +99,3 @@ let pokemonRepo = (function() {
 })();
 
 pokemonRepo.loadList();
-// pokemonRepo.loadList().then(_ => {
-//   console.log(pokemonRepo.getAll());
-// });

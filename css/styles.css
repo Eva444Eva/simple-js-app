@@ -42,23 +42,32 @@ body {
   display: flex;
   flex-direction: column;
 }
- 
-header {
-  text-align: left;
-  padding-left: 10px;
+
+  /* header with navigation */
+.navbar {
   background-color: var(--essential-color1);
-  padding: 10px;
-  margin: 10px;
 }
 
+.nav-link {
+  color: var(--color-scheme4);
+}
+
+button:focus {
+  outline: unset !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(3, 169, 244, 0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.collapse {
+  justify-content: end;
+}
+
+  /* main */
+  /* setting height of the main content */
 main {
   flex: 1;
-}
-
-footer {
-  background-color:var(--essential-color2);
-  text-align: center;
-  padding: 10px;
 }
 
 .pokemon-list {
@@ -86,4 +95,49 @@ footer {
 
 .button-class:hover {
   background-color: var(--color-scheme7);
+}
+.pokemon-details-modal {
+  display: none;
+}
+
+.pokemon-details-modal.is-visible {
+  position: fixed;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+
+  /* to show it above other content */
+  z-index: 999; 
+
+  /* to allow scrolling if the screen is not high enough*/
+  overflow: auto; 
+
+  /* this is used to center the modal */
+  display: grid;
+  text-align: center;
+}
+
+.modal-title {
+  text-transform: capitalize;
+}
+
+.modal-body {
+  background-color:  var(--essential-color1);
+  color: var(--essential-color2);
+}
+
+
+#modal-pokemon-image {
+  width: 240px;
+  height: 240px;
+}
+
+  /* footer */
+footer {
+  background-color:var(--essential-color2);
+  text-align: center;
+  padding: 20px;
 }
