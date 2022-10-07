@@ -43,6 +43,7 @@ body {
   flex-direction: column;
 }
 
+  /* header with navigation */
 .navbar {
   background-color: var(--essential-color1);
 }
@@ -51,7 +52,7 @@ body {
   color: var(--color-scheme4);
 }
 
-.navbar-toggler:focus {
+button:focus {
   outline: unset !important;
 }
 
@@ -63,14 +64,10 @@ body {
   justify-content: end;
 }
 
+  /* main */
+  /* setting height of the main content */
 main {
   flex: 1;
-}
-
-footer {
-  background-color:var(--essential-color2);
-  text-align: center;
-  padding: 20px;
 }
 
 .pokemon-list {
@@ -122,32 +119,25 @@ footer {
   display: grid;
   text-align: center;
 }
-/*
-.modal {
-  margin: auto;
-  display: flex;
-  flex-flow: column nowrap;
-  padding: 15px;
-  width: 100%;
-  max-width: 440px;
-  border: unset;
-  border-radius: 8px;
-  text-align: left;
-  text-transform: uppercase;
+
+.modal-title {
+  text-transform: capitalize;
 }
+
+.modal-body {
+  background-color:  var(--essential-color1);
+  color: var(--essential-color2);
+}
+
 
 #modal-pokemon-image {
   width: 240px;
   height: 240px;
 }
 
-#modal-close-button {
-  font-size: var(--font-size2);
-  padding: 4px 12px;
-  align-self: flex-end;
+  /* footer */
+footer {
+  background-color:var(--essential-color2);
+  text-align: center;
+  padding: 20px;
 }
-
-#modal-close-button:hover {
-  background-color: var(--essential-color1);
-  color: var(--essential-color3);
-}*/

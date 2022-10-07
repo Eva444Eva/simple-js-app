@@ -36,34 +36,37 @@ let pokemonRepo = (function() {
 
     button.innerText = pokemon.name;
     button.classList.add("button-class");
-
-    button.addEventListener('click', (event) => {
-      showDetails(pokemon);
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#pokemon-details-modal');
+    button.addEventListener('click', event => {
+      if (pokemon.detailsLoaded) {
+        updateDetailData(pokemon);
+      } else {
+        loadDetails(pokemon).then(_ => {
+          updateDetailData(pokemon);
+        });
+      }  
     });
   }
 
-  function showDetails(pokemon) {
-    if (pokemon.detailsLoaded) {
-      showDetailsModal(pokemon);
-    } else {
-      loadDetails(pokemon).then(_ => {
-        showDetailsModal(pokemon);
+  function loadDetails(pokemon) {
+    return fetch(pokemon.detailsUrl)
+      .then(response => response.json())
+      .then(details => {
+        pokemon.imageUrl = details.sprites.front_default;
+        pokemon.height = details.height;
+        pokemon.types = details.types;
+        pokemon.detailsLoaded = true;
       });
-    }
   }
 
-  function showDetailsModal(pokemon) {
-    // update data
+  function updateDetailData(pokemon) {
+    let formattedTypes = pokemon.types.map(item => item.type.name).join(', ');
+
     document.querySelector('#modal-pokemon-name').innerText = pokemon.name;
     document.querySelector('#modal-pokemon-height').innerText = pokemon.height;
+    document.querySelector('#modal-pokemon-types').innerText = formattedTypes;
     document.querySelector('#modal-pokemon-image').src = pokemon.imageUrl;
-
-    // show modal
-    document.querySelector('.pokemon-details-modal')?.classList.add('is-visible');
-  }
-
-  function hideDetailsModal() {
-    document.querySelector('.pokemon-details-modal').classList.remove('is-visible');
   }
 
   function loadList() {
@@ -85,31 +88,6 @@ let pokemonRepo = (function() {
       });
   }
 
-  function loadDetails(pokemon) {
-    return fetch(pokemon.detailsUrl)
-      .then(response => response.json())
-      .then(details => {
-        pokemon.imageUrl = details.sprites.front_default;
-        pokemon.height = details.height;
-        pokemon.types = details.types;
-        pokemon.detailsLoaded = true;
-      });
-  }
-
-  // hides the modal when clicking on the close button
-  document.querySelector('#modal-close-button').addEventListener('click', (e) => {
-    hideDetailsModal();
-  });
-
-  // hides the modal when pressing the escape key
-  window.addEventListener('keydown', (e) => {
-    let modalContainer = document.querySelector('.pokemon-details-modal');
-  
-    if(e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-      hideDetailsModal();
-    }
-  });
-
   // return object with the new public functions assigned as keys
   return {
     add: add,
@@ -117,7 +95,6 @@ let pokemonRepo = (function() {
     getAll: getAll,
     loadDetails: loadDetails,
     loadList: loadList,
-    showDeatils: showDetails,
   };
 })();
 
