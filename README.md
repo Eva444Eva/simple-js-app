@@ -11,6 +11,4 @@ Major languages: HTML - CSS - Java Script.
 Frameworks: Bootstrap.
 Technologies used: Ajax - jQuery.
 
-
-
 ![pokedex scrn](https://user-images.githubusercontent.com/112392352/195071490-86500fba-634b-4ce9-bdbd-0a8a4331f046.png)
