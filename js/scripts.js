@@ -31,6 +31,8 @@ let pokemonRepo = (function() {
 
     pokemonListElement.appendChild(pokemonElement);
 
+    pokemonElement.classList.add('col-md-4');
+    pokemonElement.classList.add('col-sm-6');
     pokemonElement.classList.add('list-item');
     pokemonElement.appendChild(button);
 
